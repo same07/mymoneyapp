@@ -34,13 +34,14 @@ export class RevenueListPage {
         private actionCtrl : ActionSheetController
     ) {
         //this.datas = [];
-    }
-
-    ionViewDidEnter(){
         this.data = {
             offset : 1,
             keyword : ''
         };
+    }
+
+    ionViewDidEnter(){
+        
         this.datas = [];
         this.loadData();
     }

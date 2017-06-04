@@ -35,6 +35,10 @@ export class ExpensesListPage {
         private actionCtrl : ActionSheetController,
     ) {
         //this.datas = [];
+        this.data = {
+            offset : 1,
+            keyword : ''
+        };
     }
 
     ionViewDidEnter(){

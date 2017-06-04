@@ -33,7 +33,8 @@ export class CategoryFormPage {
         private spinnerDialog : SpinnerDialog
     ) {
         this.data = {
-            category_type : this.navParams.get('category_type')
+            category_type : this.navParams.get('category_type'),
+            keyword : ''
         };
     }
 
@@ -42,7 +43,7 @@ export class CategoryFormPage {
             this.dialogs.alert('Category Name is required !!');
             return false;
         }
-        this.spinnerDialog.show();
+        this.spinnerDialog.show('','Please Wait');
         this.generic.saveCategory(this.data).then(
             (dt) => {
                 this.spinnerDialog.hide();
