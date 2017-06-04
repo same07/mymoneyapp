@@ -14,7 +14,7 @@
         </ion-buttons>
     </ion-navbar>
     <ion-toolbar>
-        <ion-searchbar (ionInput)="onSearch($event)"></ion-searchbar>
+        <ion-searchbar (ionInput)="searchUser($event)" [(ngModel)]="data.keyword"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
