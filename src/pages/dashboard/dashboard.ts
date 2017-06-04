@@ -2,7 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams,ActionSheetController } from 'ionic-angular';
 
 import {Toast} from '@ionic-native/toast';
-import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 import {Dialogs} from '@ionic-native/dialogs';
 import {SpinnerDialog} from '@ionic-native/spinner-dialog';
 
@@ -30,7 +29,6 @@ export class DashboardPage {
         public navParams: NavParams,
         private generic : GenericProvider,
         private toast : Toast,
-        private nativePageTransitions : NativePageTransitions,
         private actionCtrl : ActionSheetController,
         private dialogs : Dialogs,
         private spinnerDialog : SpinnerDialog
@@ -78,17 +76,6 @@ export class DashboardPage {
     }
 
     addTransaction(){
-        let options : NativeTransitionOptions = {
-            direction: 'up',
-            duration: 500,
-            slowdownfactor: 3,
-            slidePixels: 20,
-            iosdelay: 100,
-            androiddelay: 150,
-            fixedPixelsTop: 0,
-            fixedPixelsBottom: 60
-        };
-        this.nativePageTransitions.fade(options);
         if(this.transaction == 'revenue'){
             this.navCtrl.push('transaction-form',{category_type : 'Revenue'});
         }
