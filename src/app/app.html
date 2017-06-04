@@ -1,1 +1,25 @@
-<ion-nav [root]="rootPage"></ion-nav>
+<ion-menu [content]="content">
+    <ion-header style="background:#446CB3">
+        <button large ion-button color="light" full clear>
+            Welcome
+        </button>
+	</ion-header>
+    <ion-content>
+        <ion-list>
+            <ion-item menuClose detail-push (click)="push('dashboard')">
+                <ion-label>Dashboard</ion-label>
+            </ion-item>
+            <ion-item menuClose detail-push (click)="push('revenue')">
+                <ion-label>Revenue</ion-label>
+            </ion-item>
+            <ion-item menuClose detail-push (click)="push('expenses')">
+                <ion-label>Expenses</ion-label>
+            </ion-item>
+            <ion-item menuClose detail-push (click)="push('about')">
+                <ion-label>About</ion-label>
+            </ion-item>
+        </ion-list>
+    </ion-content>
+</ion-menu>
+
+<ion-nav [root]="rootPage" #content swipeBackEnabled="false">></ion-nav>

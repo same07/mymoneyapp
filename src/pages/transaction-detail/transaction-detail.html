@@ -1,0 +1,42 @@
+<!--
+  Generated template for the RevenueDetailPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+    <ion-navbar color="primary">
+        <ion-title>Transaction Detail</ion-title>
+        <ion-buttons end>
+            <button ion-button color="light" icon-only (click)="edit()">
+                <ion-icon name="create"></ion-icon>
+            </button>
+        </ion-buttons>
+    </ion-navbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-card>
+        <ion-card-header>
+            {{data.category_name}}
+        </ion-card-header>
+        <img [src]="data.image_preview" *ngIf="data.image_preview != ''">
+        <ion-card-content>
+            <ion-list>
+                <ion-item>
+                    <ion-label>Date</ion-label>
+                    <ion-note item-right color="dark">{{data.date}}</ion-note>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Amount</ion-label>
+                    <ion-note item-right color="dark">{{data.amount}}</ion-note>
+                </ion-item>
+                <ion-item text-wrap>
+                    <ion-label>Description</ion-label>
+                    <ion-note item-right color="dark">{{data.descrition}}</ion-note>
+                </ion-item>
+            </ion-list>
+        </ion-card-content>
+    </ion-card>
+</ion-content>
