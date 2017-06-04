@@ -14,7 +14,7 @@
         <ion-title>Revenue</ion-title>
     </ion-navbar>
     <ion-toolbar>
-        <ion-searchbar (ionInput)="searchUser($event)" [(ngModel)]="data.keyword"></ion-searchbar>
+        <ion-searchbar (ionInput)="onSearch($event)" [(ngModel)]="data.keyword"></ion-searchbar>
     </ion-toolbar>
 </ion-header>
 
