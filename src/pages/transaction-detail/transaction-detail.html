@@ -21,7 +21,7 @@
         <ion-card-header>
             {{data.category_name}}
         </ion-card-header>
-        <img [src]="data.image_preview" *ngIf="data.image_preview != ''">
+        <img [src]="data.image_preview" *ngIf="data.image_preview != undefined">
         <ion-card-content>
             <ion-list>
                 <ion-item>

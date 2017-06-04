@@ -63,7 +63,7 @@ export class TransactionDetailPage {
     }
 
     edit(){
-        this.navCtrl.push('revenue-form',{id:this.data.id});
+        this.navCtrl.push('transaction-form',{id:this.data.id});
     }
 
 }
