@@ -19,9 +19,11 @@ import {DatePicker} from '@ionic-native/date-picker';
 import {NativePageTransitions} from '@ionic-native/native-page-transitions';
 import {SpinnerDialog} from '@ionic-native/spinner-dialog';
 import { ImagePicker } from '@ionic-native/image-picker';
+import { NativeAudio } from '@ionic-native/native-audio';
 
 import {GenericProvider} from '../providers/generic/generic';
 import {AuthProvider} from '../providers/auth/auth';
+import { AudioProvider } from '../providers/audio/audio';
 
 
 @NgModule({
@@ -54,7 +56,9 @@ import {AuthProvider} from '../providers/auth/auth';
     GenericProvider,
     AuthProvider,
     ImagePicker,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    NativeAudio,
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    AudioProvider
   ]
 })
 export class AppModule {}

@@ -13,6 +13,7 @@ import {File} from '@ionic-native/file';
 import {Transfer} from '@ionic-native/transfer';
 
 import {GenericProvider} from '../../providers/generic/generic';
+import {AudioProvider} from '../../providers/audio/audio';
 
 declare var cordova: any;
 
@@ -50,6 +51,7 @@ export class TransactionFormPage {
         private transfer : Transfer,
         private camera : Camera,
         public imagePicker : ImagePicker,
+        private audioProvider : AudioProvider
     ) {
         this.images = [];
         this.data = {
@@ -57,6 +59,7 @@ export class TransactionFormPage {
             amount : 0,
             category_type : this.navParams.get('category_type'),
             description : '',
+            image : 'assets/images/no_image.png'
         };
         if(this.data.id != undefined){
             this.loadData();
@@ -72,6 +75,7 @@ export class TransactionFormPage {
                     return false;
                 }
                 this.data = result.data;
+                this.data.image = result.data.image == undefined ? 'assets/images/no_image.png' : result.data.image;
             },
             (err) => {
                 let result : any = err;
@@ -81,6 +85,7 @@ export class TransactionFormPage {
     }
 
     selectCategory(){
+        this.playSound();
         let modal = this.modalCtrl.create('category-list',{category_type :this.data.category_type});
         modal.present();
         modal.onDidDismiss(
@@ -95,6 +100,7 @@ export class TransactionFormPage {
 
 
     save(){
+        this.playSound();
         if(this.data.category_type == undefined){
             this.dialogs.alert('Please select Type');
             return false;
@@ -108,14 +114,14 @@ export class TransactionFormPage {
             return false;
         }
         this.spinnerDialog.show('','Please Wait',false);
-        if(this.images.length > 0){
+        if(this.data.image_path == ''){
             let cons = this.generic.getHost();
             let url = cons+"uploadImage";
             let path = '';
             let filename = '';
             //path = cordova.file.dataDirectory + this.images[i].image;
-            path = this.images[0].image;
-            filename = this.images[0].image;
+            path = this.data.image;
+            filename = this.data.image;
             var targetPath = path;
             var options = {
                 fileKey: "file",
@@ -130,7 +136,7 @@ export class TransactionFormPage {
             fileTransfer.upload(targetPath, url, options).then(data => {
                 let result : any = data;
                 let res = JSON.parse(result.response);
-                this.data.image_uploaded = res.data;
+                this.data.image_path = res.data;
                 this.saveTransaction();
             }, err => {
                 this.spinnerDialog.hide();
@@ -161,6 +167,7 @@ export class TransactionFormPage {
     }
 
     selectDate(){
+        this.playSound();
         this.datepicker.show({
             date: new Date(),
             mode: 'date',
@@ -178,6 +185,7 @@ export class TransactionFormPage {
     }
 
     selectImage(){
+        this.playSound();
         let actionSheet = this.actionSheetCtrl.create({
             title: 'Select Image Source',
             buttons: [
@@ -207,12 +215,8 @@ export class TransactionFormPage {
         this.imagePicker.getPictures({quality:100,maximumImagesCount:1,outputType:0}).then((results) => {
             if(results.length > 0 ){
                 for(let i = 0;i<results.length;i++){
-                    this.images.push({
-                        image_preview : results[i],
-                        image : results[i],
-                        image_uploaded : '',
-                    });
-                    this.data.image_preview = results[i];
+                    this.data.image = results[i];
+                    this.data.image_path = '';
                 }
             }
             
@@ -230,46 +234,22 @@ export class TransactionFormPage {
         };
  
         this.camera.getPicture(options).then((imagePath) => {
-            //this.data.imagePreview = 'data:image/jpeg;base64,' + imagePath;
-            this.data.imageUploaded = '';
-            if(this.images.length <5){
-                if(this.images.length == 0){
-                    this.data.imagePreview = imagePath;
-                }
-                var currentName = imagePath.substr(imagePath.lastIndexOf('/') + 1);
-                var correctPath = imagePath.substr(0, imagePath.lastIndexOf('/') + 1);
-                var name = this.createFileName();
-                this.copyFileToLocalDir(correctPath, currentName, name);
-                this.images.push({
-                    image_preview : imagePath,
-                    image : name,
-                    image_uploaded : ''
-                });
-                this.data.image_preview = imagePath;
-            }
+            this.data.image = imagePath;
+            this.data.image_path = '';
         }, (err) => {
         });
     }
 
-    private createFileName() {
-        var d = new Date(),
-        n = d.getTime(),
-        newFileName =  n + ".jpg";
-        return newFileName;
-    }
-
-    private copyFileToLocalDir(namePath, currentName, newFileName) {
-        this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
-            //this.lastImage = newFileName;
-        }, error => {
-            this.toast.show('Error whilte storing file','2000','top').subscribe(() => {});
-            //this.presentToast('Error while storing file.');
-        });
-    }
 
     removeImage(){
+        this.playSound();
         this.images.splice(0,1);
         this.data.image_preview = undefined;
         this.data.image_uploaded = undefined;
     }
+
+    playSound(){
+        this.audioProvider.play();
+    }
+
 }

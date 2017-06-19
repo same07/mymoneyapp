@@ -6,9 +6,14 @@
 -->
 <ion-header>
     <ion-navbar color="primary">
+        <ion-buttons start left>
+            <button (click)="close()" ion-button icon-only>
+                <ion-icon name="close"></ion-icon>
+            </button>
+        </ion-buttons>
         <ion-title>Category</ion-title>
         <ion-buttons end>
-            <button ion-button color="light"  (click)="save()">
+            <button ion-button icon-left color="light"  (click)="save()">
                 <ion-icon name="checkmark"></ion-icon> Save
             </button>
         </ion-buttons>

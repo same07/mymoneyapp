@@ -5,6 +5,7 @@ import {SpinnerDialog} from '@ionic-native/spinner-dialog';
 import {Toast} from '@ionic-native/toast';
 
 import {GenericProvider} from '../../providers/generic/generic';
+import {AudioProvider} from '../../providers/audio/audio';
 
 /**
  * Generated class for the CategoryListPage page.
@@ -30,7 +31,8 @@ export class CategoryListPage {
         private spinnerDialog : SpinnerDialog,
         private toast : Toast,
         private viewCtrl : ViewController,
-        private modalCtrl : ModalController
+        private modalCtrl : ModalController,
+        private audioProvide : AudioProvider
     ) {
         this.data = {
             offset : 1,
@@ -92,14 +94,17 @@ export class CategoryListPage {
     }
 
     selectCategory(item){
+        this.playSound();
         this.viewCtrl.dismiss({success:true,name:item.name,id:item.id});
     }
 
     close(){
+        this.playSound();
         this.viewCtrl.dismiss();
     }
 
     add(){
+        this.playSound();
         let modal = this.modalCtrl.create('category-form',{category_type : this.data.category_type});
         modal.present();
         modal.onDidDismiss(
@@ -108,6 +113,10 @@ export class CategoryListPage {
                 this.loadData();
             }
         );
+    }
+
+    playSound(){
+        this.audioProvide.play();
     }
 
 }

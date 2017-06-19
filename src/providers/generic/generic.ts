@@ -10,9 +10,9 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class GenericProvider {
-    //host : string = 'http://localhost:8000/';
+    host : string = 'http://localhost:8000/v1/';
     //host : string = 'http://192.168.43.71/ionic/MyMoneyBackend/public/v1/';
-    host : string = 'http://mymoney.samuel07.xyz/public/v1/';
+    //host : string = 'http://mymoney.samuel07.xyz/public/v1/';
     param : any;
     url : any;
     constructor(public http: Http) {

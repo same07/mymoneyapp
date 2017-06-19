@@ -7,6 +7,7 @@ import {Dialogs} from '@ionic-native/dialogs';
 
 
 import {GenericProvider} from '../../providers/generic/generic';
+import {AudioProvider} from '../../providers/audio/audio';
 
 /**
  * Generated class for the RevenueListPage page.
@@ -31,7 +32,8 @@ export class RevenueListPage {
         private toast : Toast,
         private generic: GenericProvider,
         private dialogs : Dialogs,
-        private actionCtrl : ActionSheetController
+        private actionCtrl : ActionSheetController,
+        private audioProvider : AudioProvider
     ) {
         //this.datas = [];
         this.data = {
@@ -103,14 +105,17 @@ export class RevenueListPage {
     }
 
     view(item){
+        this.playSound();
         this.navCtrl.push('transaction-detail',{id:item.id});
     }
 
     edit(item){
+        this.playSound();
         this.navCtrl.push('transaction-form',{id:item.id,category_type : 'Revenue'});
     }
 
     delete(item,index){
+        this.playSound();
         this.dialogs.confirm('Are You sure want to delete this?','Delete Confirm',['Delete It!','Cancel']).then(
             (i) => {
                 if(i == 1){
@@ -136,7 +141,8 @@ export class RevenueListPage {
     }
 
     showOptions(item,index){
-        this.actionCtrl.create({
+        this.playSound();
+        let action = this.actionCtrl.create({
             'title' : 'Action',
             'buttons' : [
                 {
@@ -153,17 +159,29 @@ export class RevenueListPage {
                 },
                 {
                     text : 'Delete',
+                    handler: () =>{
+                        this.delete(item,index);
+                    }
+                },
+                {
+                    text : 'Cancel',
                     role : 'cancel',
                     handler : () => {
-                        this.delete(item,index);
+                        
                     }
                 }
             ]
         });
+        action.present();
     }
 
     addRevenue(){
+        this.playSound();
         this.navCtrl.push('transaction-form',{category_type : 'Revenue'});
+    }
+
+    playSound(){
+        this.audioProvider.play();
     }
 
 }

@@ -1,7 +1,8 @@
 import { Component,ViewChild } from '@angular/core';
-import { Platform,Nav,IonicApp } from 'ionic-angular';
+import { Platform,Nav,IonicApp,MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+import {AudioProvider} from '../providers/audio/audio';
 
 import {Toast} from '@ionic-native/toast';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
@@ -20,18 +21,22 @@ export class MyApp {
         splashScreen: SplashScreen,
         private ionicApp : IonicApp,
         private toast : Toast,
-        private nativePageTransitions: NativePageTransitions
+        private nativePageTransitions: NativePageTransitions,
+        private audioProvider : AudioProvider,
+        private menuCtrl : MenuController
     ) {
         platform.ready().then(() => {
         statusBar.styleDefault();
             splashScreen.hide();
             this.registerBackButtonAction();
+            this.audioProvider.preload();
         });
         
 
     }
 
     push(page){
+        this.audioProvider.play();
         let options : NativeTransitionOptions = {
             direction: 'up',
             duration: 500,
@@ -71,6 +76,19 @@ export class MyApp {
             this.backButtonPressed = true;
             setTimeout(() => this.backButtonPressed = false, 2000);
         }
+    }
+
+    logout(){
+        console.log('logout');
+    }
+
+    playSound(){
+        this.audioProvider.play();
+    }
+
+    enableAuthenticatedMenu() {
+        this.menuCtrl.enable(true, 'authenticated');
+        this.menuCtrl.enable(false, 'unauthenticated');
     }
 }
 

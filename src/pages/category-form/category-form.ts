@@ -6,6 +6,7 @@ import {Toast} from '@ionic-native/toast';
 import {SpinnerDialog} from '@ionic-native/spinner-dialog';
 
 import {GenericProvider} from '../../providers/generic/generic';
+import {AudioProvider} from '../../providers/audio/audio';
 
 /**
  * Generated class for the CategoryFormPage page.
@@ -30,7 +31,8 @@ export class CategoryFormPage {
         private generic : GenericProvider,
         private view : ViewController,
         private toast : Toast,
-        private spinnerDialog : SpinnerDialog
+        private spinnerDialog : SpinnerDialog,
+        private audioProvider : AudioProvider
     ) {
         this.data = {
             category_type : this.navParams.get('category_type'),
@@ -39,6 +41,7 @@ export class CategoryFormPage {
     }
 
     save(){
+        this.playSound();
         if(this.data.name == undefined || this.data.name == ''){
             this.dialogs.alert('Category Name is required !!');
             return false;
@@ -59,6 +62,15 @@ export class CategoryFormPage {
                 this.view.dismiss();
             }
         );
+    }
+
+    playSound(){
+        this.audioProvider.play();
+    }
+
+    close(){
+        this.playSound();
+        this.view.dismiss();
     }
 
 }

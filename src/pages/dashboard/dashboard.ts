@@ -6,6 +6,7 @@ import {Dialogs} from '@ionic-native/dialogs';
 import {SpinnerDialog} from '@ionic-native/spinner-dialog';
 
 import {GenericProvider} from '../../providers/generic/generic';
+import {AudioProvider} from '../../providers/audio/audio';
 /**
  * Generated class for the DashboardPage page.
  *
@@ -31,15 +32,16 @@ export class DashboardPage {
         private toast : Toast,
         private actionCtrl : ActionSheetController,
         private dialogs : Dialogs,
-        private spinnerDialog : SpinnerDialog
+        private spinnerDialog : SpinnerDialog,
+        private audioProvider : AudioProvider
     ) {
-    
-    }
-
-    ionViewDidEnter(){
         this.datas = [];
         this.revenue = [];
         this.expenses = [];
+    }
+
+    ionViewDidEnter(){
+        
         this.loadRevenue();
         this.loadExpenses();
         
@@ -76,6 +78,7 @@ export class DashboardPage {
     }
 
     addTransaction(){
+        this.playSound();
         if(this.transaction == 'revenue'){
             this.navCtrl.push('transaction-form',{category_type : 'Revenue'});
         }
@@ -85,14 +88,17 @@ export class DashboardPage {
     }
 
     view(item){
+        this.playSound();
         this.navCtrl.push('transaction-detail',{id:item.id});
     }
 
     edit(item){
+        this.playSound();
         this.navCtrl.push('transaction-form',{id:item.id,category_type : item.category_type});
     }
 
     delete(item,index){
+        this.playSound();
         this.dialogs.confirm('Are You sure want to delete this?','Delete Confirm',['Delete It!','Cancel']).then(
             (i) => {
                 if(i == 1){
@@ -118,7 +124,8 @@ export class DashboardPage {
     }
 
     showOptions(item,index){
-        this.actionCtrl.create({
+        this.playSound();
+        let action = this.actionCtrl.create({
             'title' : 'Action',
             'buttons' : [
                 {
@@ -135,13 +142,23 @@ export class DashboardPage {
                 },
                 {
                     text : 'Delete',
+                    handler: () =>{
+                        this.delete(item,index);
+                    }
+                },
+                {
+                    text : 'Cancel',
                     role : 'cancel',
                     handler : () => {
-                        this.delete(item,index);
+                        
                     }
                 }
             ]
         });
+        action.present();
     }
 
+    playSound(){
+        this.audioProvider.play();
+    }
 }

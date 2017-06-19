@@ -9,7 +9,7 @@
     <ion-navbar color="primary">
         <ion-title>Transaction</ion-title>
         <ion-buttons end>
-            <button ion-button color="light" (click)="save()">
+            <button ion-button icon-left color="light" (click)="save()">
                 <ion-icon name="checkmark"></ion-icon> Save
             </button>
         </ion-buttons>
@@ -55,17 +55,15 @@
             <ion-label floating>Description</ion-label>
             <ion-textarea [(ngModel)]="data.description"></ion-textarea>
         </ion-item>
-        <!--<ion-item>
-            <ion-thumbnail item-left *ngIf="data.image_preview != undefined">
-                <img [src]='data.image_preview'>
-            </ion-thumbnail>
-            <button ion-button color="secondary" (click)="selectImage()" *ngIf="data.image_preview == undefined">
-                Select Image
-            </button>
-            <button ion-button color="danger" (click)="removeImage()" *ngIf="data.image_preview != undefined">
-                Remove Image
-            </button>
-        </ion-item>-->
+        <ion-card>
+            <img [src]="data.image">
+            <ion-card-content>
+                <ion-item>
+                    <button item-left ion-button color="primary" (click)="selectImage()"><span *ngIf="data.image_path == undefined">Select</span><span *ngIf="data.image_path != undefined">Change</span> Image</button>
+                    <button item-right ion-button color="danger" (click)="removeImage()" *ngIf="data.image_path != undefined">Remove Image</button>
+                </ion-item>
+            </ion-card-content>
+        </ion-card>
     </ion-list>
 
 </ion-content>

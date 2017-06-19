@@ -5,7 +5,7 @@ import {Toast} from '@ionic-native/toast';
 import {SpinnerDialog} from '@ionic-native/spinner-dialog';
 
 import {GenericProvider} from '../../providers/generic/generic';
-
+import {AudioProvider} from '../../providers/audio/audio';
 /**
  * Generated class for the TransactionDetailPage page.
  *
@@ -27,7 +27,8 @@ export class TransactionDetailPage {
         public navParams: NavParams,
         private generic : GenericProvider,
         private toast : Toast,
-        private spinnerDialog : SpinnerDialog
+        private spinnerDialog : SpinnerDialog,
+        private audioProvider :AudioProvider
     ) {
         
         this.data = {
@@ -36,12 +37,6 @@ export class TransactionDetailPage {
         };
 
         this.loadData();
-    }
-
-    ionViewWillEnter(){
-        if(this.navParams.get('id') == undefined){
-            this.navCtrl.popToRoot();
-        }
     }
 
     loadData(){
@@ -63,7 +58,12 @@ export class TransactionDetailPage {
     }
 
     edit(){
+        this.playSound();
         this.navCtrl.push('transaction-form',{id:this.data.id});
+    }
+
+    playSound(){
+        this.audioProvider.play();
     }
 
 }
