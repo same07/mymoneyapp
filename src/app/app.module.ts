@@ -3,7 +3,8 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
-import {HttpModule} from '@angular/http';
+import { HttpModule, Http} from '@angular/http';
+
 
 import { MyApp } from './app.component';
 
@@ -24,7 +25,15 @@ import { NativeAudio } from '@ionic-native/native-audio';
 import {GenericProvider} from '../providers/generic/generic';
 import {AuthProvider} from '../providers/auth/auth';
 import { AudioProvider } from '../providers/audio/audio';
+import { ConstantProvider } from '../providers/constant/constant';
 
+
+import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
+import { TranslateHttpLoader } from '@ngx-translate/http-loader';
+import { TranslateStore } from "@ngx-translate/core/src/translate.store";
+export function HttpLoaderFactory(Http: Http) {
+    return new TranslateHttpLoader(Http, './assets/i18n/', '.json');
+}
 
 @NgModule({
   declarations: [
@@ -34,7 +43,14 @@ import { AudioProvider } from '../providers/audio/audio';
     BrowserModule,
     HttpModule,
     IonicModule.forRoot(MyApp),
-    IonicStorageModule.forRoot()
+    IonicStorageModule.forRoot(),
+    TranslateModule.forChild({
+        loader: {
+            provide: TranslateLoader,
+            useFactory: HttpLoaderFactory,
+            deps: [Http]
+        }
+    }),
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -58,7 +74,9 @@ import { AudioProvider } from '../providers/audio/audio';
     ImagePicker,
     NativeAudio,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AudioProvider
+    AudioProvider,
+    ConstantProvider,
+    TranslateStore
   ]
 })
 export class AppModule {}

@@ -16,10 +16,10 @@
     <ion-toolbar>
         <ion-segment [(ngModel)]="transaction">
             <ion-segment-button value="revenue" (click)="playSound()">
-                Revenue
+                {{'REVENUE' | translate}}
             </ion-segment-button>
             <ion-segment-button value="expenses" (click)="playSound()">
-                Expenses
+                {{'EXPENSES' | translate}}
             </ion-segment-button>
         </ion-segment>
     </ion-toolbar>

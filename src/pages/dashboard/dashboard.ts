@@ -7,6 +7,8 @@ import {SpinnerDialog} from '@ionic-native/spinner-dialog';
 
 import {GenericProvider} from '../../providers/generic/generic';
 import {AudioProvider} from '../../providers/audio/audio';
+
+import {TranslateService} from '@ngx-translate/core';
 /**
  * Generated class for the DashboardPage page.
  *
@@ -33,8 +35,10 @@ export class DashboardPage {
         private actionCtrl : ActionSheetController,
         private dialogs : Dialogs,
         private spinnerDialog : SpinnerDialog,
-        private audioProvider : AudioProvider
+        private audioProvider : AudioProvider,
+        private translate : TranslateService
     ) {
+        this.translate.use('en');
         this.datas = [];
         this.revenue = [];
         this.expenses = [];

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+import {ConstantProvider} from '../constant/constant';
+
 /*
   Generated class for the GenericProvider provider.
 
@@ -10,14 +12,13 @@ import 'rxjs/add/operator/map';
 */
 @Injectable()
 export class GenericProvider {
-    host : string = 'http://localhost:8000/v1/';
-    //host : string = 'http://192.168.43.71/ionic/MyMoneyBackend/public/v1/';
-    //host : string = 'http://mymoney.samuel07.xyz/public/v1/';
+    host : any;
     param : any;
     url : any;
-    constructor(public http: Http) {
+    constructor(public http: Http,private constant : ConstantProvider) {
         this.param = {};
         this.url = '';
+        this.host = this.constant.getHost();
     }
 
     public getHost(){

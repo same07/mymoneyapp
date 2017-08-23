@@ -12,7 +12,7 @@
         "ionic:serve": "ionic-app-scripts serve"
     },
     "dependencies": {
-        "@angular/common": "4.1.2",
+        "@angular/common": "^4.3.5",
         "@angular/compiler": "4.1.2",
         "@angular/compiler-cli": "4.1.2",
         "@angular/core": "4.1.2",
@@ -36,6 +36,8 @@
         "@ionic-native/toast": "^3.12.1",
         "@ionic-native/transfer": "^3.12.1",
         "@ionic/storage": "^2.0.1",
+        "@ngx-translate/core": "^7.2.0",
+        "@ngx-translate/http-loader": "^0.1.0",
         "chart.js": "^2.6.0",
         "com-sarriaroman-photoviewer": "^1.1.10",
         "com.synconset.imagepicker": "https://github.com/Telerik-Verified-Plugins/ImagePicker",
@@ -69,14 +71,18 @@
     },
     "devDependencies": {
         "@ionic/app-scripts": "1.3.7",
-        "@ionic/cli-plugin-cordova": "1.4.0",
-        "@ionic/cli-plugin-ionic-angular": "1.3.1",
+        "@ionic/cli-plugin-cordova": "1.6.2",
+        "@ionic/cli-plugin-ionic-angular": "1.4.1",
+        "ionic": "3.9.2",
         "typescript": "2.3.3"
     },
     "description": "An Ionic project",
     "cordova": {
         "plugins": {
-            "cordova-plugin-camera": {},
+            "cordova-plugin-camera": {
+                "CAMERA_USAGE_DESCRIPTION": " ",
+                "PHOTOLIBRARY_USAGE_DESCRIPTION": " "
+            },
             "cordova-plugin-datepicker": {},
             "cordova-plugin-dialogs": {},
             "cordova-plugin-filepath": {},

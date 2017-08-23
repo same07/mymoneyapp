@@ -7,6 +7,8 @@ import {AudioProvider} from '../providers/audio/audio';
 import {Toast} from '@ionic-native/toast';
 import { NativePageTransitions, NativeTransitionOptions } from '@ionic-native/native-page-transitions';
 
+import { TranslateService } from '@ngx-translate/core';
+
 @Component({
     templateUrl: 'app.html'
 })
@@ -23,8 +25,10 @@ export class MyApp {
         private toast : Toast,
         private nativePageTransitions: NativePageTransitions,
         private audioProvider : AudioProvider,
-        private menuCtrl : MenuController
+        private menuCtrl : MenuController,
+        private translate : TranslateService
     ) {
+        this.translate.use('en');
         platform.ready().then(() => {
         statusBar.styleDefault();
             splashScreen.hide();
@@ -47,7 +51,7 @@ export class MyApp {
             fixedPixelsTop: 0,
             fixedPixelsBottom: 60
         };
-        this.nativePageTransitions.flip(options);
+        this.nativePageTransitions.slide(options);
         this.nav.setRoot(page);
     }
 

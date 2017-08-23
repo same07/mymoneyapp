@@ -1,5 +1,8 @@
 {
   "name": "MyMoney",
   "app_id": "63a68e60",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
 }
